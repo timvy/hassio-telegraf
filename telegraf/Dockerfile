@@ -27,7 +27,8 @@ RUN \
         /var/lib/apt/lists/* 
 
 # Copy root filesystem
-COPY rootfs /
+COPY rootfs/etc/ /etc/
+COPY rootfs/bin/ /bin/
 
 RUN chown root /etc/cont-init.d/telegraf.sh
 RUN chown root /etc/telegraf/telegraf.conf

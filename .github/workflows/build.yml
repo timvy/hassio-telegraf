@@ -1,4 +1,4 @@
-name: Docker build and shellcheck
+name: Docker build and test
 
 on: [push, pull_request]
 
@@ -17,6 +17,7 @@ jobs:
         with:
           args: |
             --test \
-            --all \
-            --target telegraf 
+            --amd64 \
+            --target telegraf \
+            --addon
 

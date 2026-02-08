@@ -5,11 +5,8 @@
   "description": "An addon to add telegraf to hassio.",
   "url": "https://github.com/slushpupie/hassio-telegraf",
   "arch": [
-    "armhf",
-    "armv7",
-    "aarch64",
     "amd64",
-    "i386"
+    "aarch64"
   ],
   "init": false,
   "startup": "services",
@@ -135,5 +132,5 @@
   "ports": {
     "9273/tcp": 9273
   },
-  "image": "sabuto/{arch}-hassio-telegraf"
+  "image": "ghcr.io/slushpupie/hassio-telegraf/{arch}"
 }

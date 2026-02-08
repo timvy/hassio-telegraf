@@ -1,0 +1,31 @@
+name: Docker build and deploy
+
+on: 
+  push:
+    tags:
+     - '*'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+      - name: shellcheck
+        run: shellcheck telegraf/run.sh
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: publish
+        uses: home-assistant/builder@2025.11.0
+        with:
+          args: |
+            --amd64 \
+            --target telegraf \
+            --docker-hub ghcr.io/slushpupie/hassio-telegraf \
+            --addon 
+
