@@ -29,3 +29,46 @@ jobs:
             --docker-hub ghcr.io/slushpupie/hassio-telegraf \
             --addon 
 
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+
+    permissions:                    # Global permissions configuration starts here
+      contents: read                # 'read' access to repository contents
+      pull-requests: write 
+
+    steps:
+      - name: checkout hassio-telegraf
+        uses: actions/checkout@v6
+        with:
+          path: hassio-telegraf 
+      - name: checkout hassio-repo
+        uses: actions/checkout@v6
+        with:
+          repository: slushpupie/hassio-repo
+          path: hassio-repo
+
+      - name: configure git client
+        run: |
+        continue-on-error: true
+
+      - name: Update repo config
+        run: |
+          cd hassio-telegraf
+          git config user.name "$(git log -1 --pretty=format:'%an')"
+          git config user.email "$(git log -1 --pretty=format:'%ae')"
+          VERSION=$(cat telegraf/config.json | jq '.version')
+          cd ..
+          mkdir -p hassio-repo/telegraf 
+          cp -Rv hassio-telegraf/telegraf/config.json hassio-repo/telegraf/config.json
+          cd hassio-repo
+          git add telegraf/config.json
+          git commit -m "Updated telegraf to $VERSION"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          repository: slushpupie/hassio-repo
+          directory: hassio-repo 
+  
