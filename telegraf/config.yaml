@@ -2,7 +2,7 @@ name: Telegraf
 version: "0.1.0"
 slug: hassio_telegraf
 description: An addon to add telegraf to hassio.
-url: https://github.com/slushpupie/hassio-telegraf
+url: https://github.com/timvy/hassio-telegraf
 arch:
   - amd64
   - aarch64
@@ -21,9 +21,6 @@ map:
   - addons:rw
   - backup:rw
   - share:rw
-privileged:
-  - SYS_ADMIN
-full_access: true
 options:
   custom_conf:
     enabled: false
@@ -105,4 +102,4 @@ schema:
     metrics_path: str
 ports:
   "9273/tcp": 9273
-image: ghcr.io/slushpupie/hassio-telegraf/{arch}
+image: ghcr.io/timvy/hassio-telegraf/{arch}
