@@ -21,6 +21,9 @@ map:
   - addons:rw
   - backup:rw
   - share:rw
+privileged:
+  - SYS_ADMIN
+full_access: true
 options:
   custom_conf:
     enabled: false
