@@ -1,6 +1,6 @@
 name: Telegraf
 version: "0.1.0"
-slug: hassio_telegraf
+slug: hassio-telegraf
 description: An addon to add telegraf to hassio.
 url: https://github.com/timvy/hassio-telegraf
 arch:
@@ -16,11 +16,11 @@ docker_api: true
 host_network: true
 apparmor: false
 map:
-  - config:rw
+  - addon_config:rw
   - ssl:rw
-  - addons:rw
-  - backup:rw
-  - share:rw
+  - addons
+  - backup
+  - share
 privileged:
   - SYS_ADMIN
 full_access: true
