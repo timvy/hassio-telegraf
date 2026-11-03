@@ -1,4 +1,5 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base/amd64:stable
+ARG BUILD_ARCH=amd64
+ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base/${BUILD_ARCH}:9.5.1
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 
@@ -6,9 +7,8 @@ FROM ${BUILD_FROM}
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Setup base system
-ARG BUILD_ARCH=amd64
-
-ARG TELEGRAF_VERSION
+ARG BUILD_ARCH
+ARG TELEGRAF_VERSION=1.40.3
 
 # Setup base
 RUN \
@@ -40,29 +40,3 @@ RUN chmod 775 /etc/services.d/telegraf/run
 RUN chmod 775 /etc/services.d/telegraf/finish
         
 EXPOSE 8092/udp 8094 8125/udp 9273/tcp
-
-# Build arguments
-ARG BUILD_ARCH
-ARG BUILD_DATE
-ARG BUILD_DESCRIPTION
-ARG BUILD_NAME
-ARG BUILD_REF
-ARG BUILD_REPOSITORY
-ARG BUILD_VERSION
-
-# Labels
-LABEL \
-    io.hass.name="${BUILD_NAME}" \
-    io.hass.description="${BUILD_DESCRIPTION}" \
-    io.hass.arch="${BUILD_ARCH}" \
-    io.hass.type="addon" \
-    io.hass.version=${BUILD_VERSION} \
-    maintainer="Sacrementus" \
-    org.opencontainers.image.title="${BUILD_NAME}" \
-    org.opencontainers.image.description="${BUILD_DESCRIPTION}" \
-    org.opencontainers.image.vendor="slushpupie" \
-    org.opencontainers.image.authors="slushpupie" \
-    org.opencontainers.image.licenses="MIT" \
-    org.opencontainers.image.created=${BUILD_DATE} \
-    org.opencontainers.image.revision=${BUILD_REF} \
-    org.opencontainers.image.version=${BUILD_VERSION}

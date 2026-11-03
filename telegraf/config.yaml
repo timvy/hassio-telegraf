@@ -1,5 +1,5 @@
 name: Telegraf
-version: "0.1.0"
+version: "0.1.1"
 slug: telegraf
 description: An addon to add telegraf to hassio.
 url: https://github.com/timvy/hassio-telegraf
@@ -105,4 +105,4 @@ schema:
     metrics_path: str
 ports:
   "9273/tcp": 9273
-image: ghcr.io/timvy/hassio-telegraf/{arch}
+image: ghcr.io/timvy/hassio-telegraf
